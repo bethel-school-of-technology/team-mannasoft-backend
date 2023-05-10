@@ -1,9 +1,11 @@
 import { Sequelize } from "sequelize";
 import { UserFactory } from "./user";
 
-const dbName = 'legalEaseDB';
+// Create a database with this name.
+const dbName = 'legalEasedb';
 const username = 'root';
-const password = 'password';
+// Add your own password that you chose for your mysql
+const password = 'Password1!';
 
 const sequelize = new Sequelize(dbName, username, password, {
     host: '127.0.0.1',

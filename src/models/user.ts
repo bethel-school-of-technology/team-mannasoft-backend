@@ -29,7 +29,8 @@ export function UserFactory(sequelize: Sequelize) {
         lastName: {
             type: DataTypes.STRING,
             allowNull: false
-        },email: {
+        },
+        email: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true
@@ -38,9 +39,11 @@ export function UserFactory(sequelize: Sequelize) {
             type: DataTypes.STRING,
             allowNull: false
         },
-    }, {
+    },
+    {
         tableName: 'users',
         freezeTableName: true,
         sequelize
-    });
+    }
+    );
 }

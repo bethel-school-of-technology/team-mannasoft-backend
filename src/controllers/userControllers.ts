@@ -4,6 +4,7 @@ import { comparePasswords, hashPassword, signUserToken, verifyUser } from '../se
 
 export const createUser: RequestHandler = async (req, res, next) => {
     let newUser: User = req.body;
+
     if (newUser.username && newUser.password) {
         let hashedPassword = await hashPassword(newUser.password);
         newUser.password = hashedPassword;
@@ -16,7 +17,7 @@ export const createUser: RequestHandler = async (req, res, next) => {
     else {
         res.status(400).send('Username and password required');
     }
-}
+};
 
 export const loginUser: RequestHandler = async (req, res, next) => {
     let existingUser: User | null = await User.findOne({ 
