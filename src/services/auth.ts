@@ -32,7 +32,6 @@ export const verifyUser = async (req: Request) => {
 
         try {
             let decoded: any = await jwt.verify(token, secret);
-            //@ts-ignore
             return User.findByPk(decoded.userId);
         }
         catch (err) {
