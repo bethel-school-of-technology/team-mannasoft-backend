@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node src/app.js",
-    "dev": "concurrently \"tsc -w\" \"nodemon build/app.js\"",
+    "dev": "concurrently \"tsc -w\" env-cmd -f ./config/dev.env \"nodemon build/app.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
+    "dotenv": "^16.0.3",
     "express": "^4.17.3",
     "jsonwebtoken": "^9.0.0",
     "morgan": "^1.10.0",
