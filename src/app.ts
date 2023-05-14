@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import { db } from './models';
 
 import userRoutes from './routes/userRoutes';
+import fileRoutes from './routes/fileRoutes';
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 app.use('/api/users', userRoutes)
+app.use('/api/files', fileRoutes)
 
 app.use((req: Request, res: Response, next: NextFunction) => {
     res.status(404).end();

@@ -1,10 +1,9 @@
 import { Sequelize } from "sequelize";
 import { UserFactory } from "./user";
+import { AssociateUserFile, FileFactory } from "./file";
 
-// Create a database with this name.
 const dbName = 'legalEasedb';
 const username = 'root';
-// Add your own password that you chose for your mysql
 const password = 'Password1!';
 
 const sequelize = new Sequelize(dbName, username, password, {
@@ -13,6 +12,8 @@ const sequelize = new Sequelize(dbName, username, password, {
     dialect: 'mysql'
 });
 
+FileFactory(sequelize);
 UserFactory(sequelize);
+AssociateUserFile()
 
 export const db = sequelize;
