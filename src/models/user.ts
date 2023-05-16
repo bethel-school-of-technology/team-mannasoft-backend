@@ -34,7 +34,7 @@ export function UserFactory(sequelize: Sequelize) {
         phoneNumber: {
             type: DataTypes.INTEGER,
             allowNull: true
-        }
+        },
         email: {
             type: DataTypes.STRING,
             allowNull: false,
