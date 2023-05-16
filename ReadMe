@@ -1,0 +1,3 @@
+Create a mysql data base in the console called: legalEasedb
+Create a .env file outside of the src folder and put this in it and inside the quotations
+put the password that you use to sign in to mysql: DBPASSWORD=""
