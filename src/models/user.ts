@@ -41,7 +41,7 @@ export function UserFactory(sequelize: Sequelize) {
         },
     },
     {
-        tableName: 'users',
+        tableName: 'user',
         freezeTableName: true,
         sequelize
     }

@@ -56,3 +56,47 @@ export const getUser: RequestHandler = async (req, res, next) => {
         res.status(401).send();
     }
 }
+
+export const editUser: RequestHandler = async (req, res, next) => {
+    let user: User | null = await verifyUser(req);
+
+    if (!user) {
+        return res.status(403).send();
+    };
+
+    let userId = req.params.userId;
+    let newUser: User = req.body;
+    
+    let userFound = await User.findByPk(userId);
+    
+    if (userFound && userFound.userId == newUser.userId && newUser.username && newUser.email && newUser.password) {
+            await User.update(newUser, {
+                where: { userId: userId }
+            });
+            res.status(200).json();
+    }
+    else {
+        res.status(400).json();
+    };
+};
+
+export const deleteUser: RequestHandler = async (req, res, next) => {
+    let user: User | null = await verifyUser(req);
+
+    if (!user) {
+        return res.status(403).send();
+    };
+
+    let userId = req.params.userId;
+    let userFound = await User.findByPk(userId);
+    
+    if (userFound) {
+        await User.destroy({
+                where: { userId: userId }
+        });
+        res.status(200).json();
+    }
+    else {
+        res.status(404).json();
+    };
+};
