@@ -19,7 +19,7 @@ export const createFile: RequestHandler = async (req, res, next) => {
     };
     let newFile: File = req.body;
     newFile.userId = user.userId
-    if (newFile.file && newFile.description) {
+    if (newFile.fileName && newFile.description) {
         let created = await File.create(newFile);
         res.status(201).json(created);
     }
@@ -55,7 +55,7 @@ export const editFile: RequestHandler = async (req, res, next) => {
     
     let fileFound = await File.findByPk(fileId);
     
-    if (fileFound && fileFound.fileId == newFile.fileId && newFile.file && newFile.description) {
+    if (fileFound && fileFound.fileId == newFile.fileId && newFile.fileName && newFile.description) {
             await File.update(newFile, {
                 where: { fileId: fileId }
             });

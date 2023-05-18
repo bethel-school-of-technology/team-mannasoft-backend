@@ -68,8 +68,17 @@ export const editUser: RequestHandler = async (req, res, next) => {
     let newUser: User = req.body;
     
     let userFound = await User.findByPk(userId);
+
+    console.log(newUser)
     
-    if (userFound && userFound.userId == newUser.userId && newUser.username && newUser.email && newUser.password) {
+    if (userFound && userFound.userId == user.userId && newUser.username && newUser.email) {
+        if (newUser.password && newUser.password !== '') {
+            let hashedPassword = await hashPassword(newUser.password);
+            newUser.password = hashedPassword;
+        } else {
+            newUser.password = userFound.password;
+        }
+        
             await User.update(newUser, {
                 where: { userId: userId }
             });
