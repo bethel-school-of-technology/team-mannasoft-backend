@@ -5,7 +5,7 @@ export class File extends Model<InferAttributes<File>, InferCreationAttributes<F
     declare fileId: number;
     declare description: string;
     declare fileName: string;
-    declare fileExtention: string;
+    declare fileExtension: string;
     declare userId: number;
     declare createdAt?: Date;
     declare updatedAt?: Date;
@@ -27,7 +27,7 @@ export function FileFactory(sequelize: Sequelize) {
             type: DataTypes.STRING,
             allowNull: false
         },
-        fileExtention: {
+        fileExtension: {
             type: DataTypes.STRING,
             allowNull: false
         },
