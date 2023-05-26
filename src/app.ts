@@ -18,7 +18,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
- 
+
 app.use('/api/users', userRoutes)
 app.use('/api/files', fileRoutes)
 
