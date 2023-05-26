@@ -3,9 +3,9 @@ import { User } from "./user";
 
 export class File extends Model<InferAttributes<File>, InferCreationAttributes<File>> {
     declare fileId: number;
-    declare description: string;
+    declare description?: string;
     declare fileName: string;
-    declare fileExtension: string;
+    declare storedName: string;
     declare userId: number;
     declare createdAt?: Date;
     declare updatedAt?: Date;
@@ -21,13 +21,13 @@ export function FileFactory(sequelize: Sequelize) {
         },
         description: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         fileName: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        fileExtension: {
+        storedName: {
             type: DataTypes.STRING,
             allowNull: false
         },
@@ -36,11 +36,11 @@ export function FileFactory(sequelize: Sequelize) {
             allowNull: false,
         }
     },
-    {
-        tableName: 'file',
-        freezeTableName: true,
-        sequelize
-    }
+        {
+            tableName: 'dbfiles',
+            freezeTableName: true,
+            sequelize
+        }
     );
 }
 
