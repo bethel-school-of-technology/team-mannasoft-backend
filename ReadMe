@@ -1,3 +1,10 @@
-Create a mysql data base in the console called: legalEasedb
-Create a .env file outside of the src folder and put this in it and inside the quotations
+1,Create a mysql data base in the console called: legalEasedb
+
+2,Run: npm install
+
+3,Run: npm run build
+
+4,Create a .env file outside of the src folder and put this in it and inside the quotations
 put the password that you use to sign in to mysql: DBPASSWORD=""
+
+5,To start Run: npm run dev

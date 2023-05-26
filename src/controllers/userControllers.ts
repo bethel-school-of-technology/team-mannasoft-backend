@@ -20,13 +20,13 @@ export const createUser: RequestHandler = async (req, res, next) => {
 };
 
 export const loginUser: RequestHandler = async (req, res, next) => {
-    let existingUser: User | null = await User.findOne({ 
+    let existingUser: User | null = await User.findOne({
         where: { username: req.body.username }
     });
 
     if (existingUser) {
         let passwordsMatch = await comparePasswords(req.body.password, existingUser.password);
-        
+
         if (passwordsMatch) {
             let token = await signUserToken(existingUser);
             res.status(200).json({ token });
@@ -44,12 +44,13 @@ export const getUser: RequestHandler = async (req, res, next) => {
     let user: User | null = await verifyUser(req);
 
     if (user) {
-        let { username, firstName, lastName, email } = user;
+        let { username, firstName, lastName, email, phoneNumber } = user;
         res.status(200).json({
             username,
             firstName,
             lastName,
-            email
+            email,
+            phoneNumber
         });
     }
     else {
@@ -66,11 +67,11 @@ export const editUser: RequestHandler = async (req, res, next) => {
 
     let userId = req.params.userId;
     let newUser: User = req.body;
-    
+
     let userFound = await User.findByPk(userId);
 
     console.log(newUser)
-    
+
     if (userFound && userFound.userId == user.userId && newUser.username && newUser.email) {
         if (newUser.password && newUser.password !== '') {
             let hashedPassword = await hashPassword(newUser.password);
@@ -78,11 +79,11 @@ export const editUser: RequestHandler = async (req, res, next) => {
         } else {
             newUser.password = userFound.password;
         }
-        
-            await User.update(newUser, {
-                where: { userId: userId }
-            });
-            res.status(200).json();
+
+        await User.update(newUser, {
+            where: { userId: userId }
+        });
+        res.status(200).json();
     }
     else {
         res.status(400).json();
@@ -98,10 +99,10 @@ export const deleteUser: RequestHandler = async (req, res, next) => {
 
     let userId = req.params.userId;
     let userFound = await User.findByPk(userId);
-    
+
     if (userFound) {
         await User.destroy({
-                where: { userId: userId }
+            where: { userId: userId }
         });
         res.status(200).json();
     }

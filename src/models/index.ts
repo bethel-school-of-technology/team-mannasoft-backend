@@ -3,7 +3,6 @@ import { UserFactory } from "./user";
 import { AssociateUserFile, FileFactory } from "./file";
 
 require('dotenv').config()
-console.log(process.env)
 
 const dbName = 'legalEasedb';
 const username = 'root';

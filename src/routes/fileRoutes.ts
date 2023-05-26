@@ -1,12 +1,15 @@
-import { Router } from "express";
-import { createFile, getFiles, getOneFile, editFile, deleteFile } from "../controllers/fileControllers";
+const express = require('express')
+import { createFile, getFiles, getOneFile, editFile, deleteFile, downloadOneFile } from "../controllers/fileControllers";
+const multer = require('multer')
+const upload = multer({ dest: 'userFiles/' })
 
-const router = Router();
+const apps = express()
 
-router.get('/', getFiles);
-router.post('/', createFile);
-router.get('/:fileId', getOneFile);
-router.put('/:fileId', editFile);
-router.delete('/:fileId', deleteFile)
+apps.get('/', getFiles);
+apps.post('/', upload.single('file'), createFile);
+apps.get('/:fileId', getOneFile);
+apps.get('/download/:fileId', downloadOneFile);
+apps.put('/:fileId', editFile);
+apps.delete('/:fileId', deleteFile)
 
-export default router; 
+export default apps; 
