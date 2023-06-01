@@ -41,21 +41,21 @@ export const loginUser: RequestHandler = async (req, res, next) => {
 }
 
 export const getUser: RequestHandler = async (req, res, next) => {
-    let user: User | null = await verifyUser(req);
-
+    let user: User | null = await verifyUser(req)
     if (user) {
-        let { username, firstName, lastName, email, phoneNumber } = user;
-        res.status(200).json({
+        let { userId, username, firstName, lastName, email, phoneNumber } = user
+        res.status(200).json ({
+            userId,
             username,
             firstName,
             lastName,
             email,
             phoneNumber
-        });
+        })
     }
     else {
-        res.status(401).send();
-    }
+        res.status(401).json();
+    };
 }
 
 export const editUser: RequestHandler = async (req, res, next) => {
@@ -72,7 +72,7 @@ export const editUser: RequestHandler = async (req, res, next) => {
 
     console.log(newUser)
 
-    if (userFound && userFound.userId == user.userId && newUser.username && newUser.email) {
+    if (userFound && userFound.userId == user.userId && newUser.username && newUser.email && newUser.phoneNumber) {
         if (newUser.password && newUser.password !== '') {
             let hashedPassword = await hashPassword(newUser.password);
             newUser.password = hashedPassword;
