@@ -6,5 +6,6 @@
 
 4,Create a .env file outside of the src folder and put this in it and inside the quotations
 put the password that you use to sign in to mysql: DBPASSWORD=""
+and name of the database                         : DBNAME=""
 
 5,To start Run: npm run dev
