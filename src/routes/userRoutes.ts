@@ -1,5 +1,5 @@
-import { Router } from "express";
-import { createUser, getUser, loginUser, editUser, deleteUser } from "../controllers/userControllers";
+import { Router } from 'express';
+import { createUser, getUser, loginUser, editUser, deleteUser, signOutUser } from '../controllers/userControllers';
 
 const router = Router();
 
@@ -8,5 +8,6 @@ router.post('/login', loginUser);
 router.put('/:userId', editUser);
 router.delete('/:userId', deleteUser);
 router.get('/:userId', getUser);
+router.post('/signout', signOutUser);
 
-export default router; 
+export default router;
