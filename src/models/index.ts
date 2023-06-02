@@ -4,7 +4,7 @@ import { AssociateUserFile, FileFactory } from "./file";
 
 require('dotenv').config()
 
-const dbName = 'legalEasedb';
+const dbName: any = process.env.DBNAME;
 const username = 'root';
 const password = process.env.DBPASSWORD;
 
