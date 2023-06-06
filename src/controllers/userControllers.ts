@@ -117,3 +117,13 @@ export const signOutUser: RequestHandler = async (req, res, next) => {
 
   res.status(200).json('User signed out successfully');
 };
+
+export const verify: RequestHandler = async (req, res, next) => {
+    let result = await verifyUser(req);
+    console.log(result);
+    if (result) {
+        res.status(200).json(result.dataValues);
+    } else {
+        res.status(200).json(false);
+    };
+};
