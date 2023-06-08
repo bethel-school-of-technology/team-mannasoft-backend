@@ -8,6 +8,15 @@ export class User extends Model<InferAttributes<User>, InferCreationAttributes<U
     declare email: string;
     declare firstName: string;
     declare lastName: string;
+    declare streetName: string;
+    declare city: string;
+    declare state: string;
+    declare country: string;
+    declare bank?: string;
+    declare license?: string;
+    declare socialSecurityNumber?: string;
+    declare birthCertificate?: string;
+    declare passportNumber?: string;
 }
 
 export function UserFactory(sequelize: Sequelize) {
@@ -44,9 +53,45 @@ export function UserFactory(sequelize: Sequelize) {
             type: DataTypes.STRING,
             allowNull: false
         },
+        streetName: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        city: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        state: {
+            type: DataTypes.STRING,
+            allowNull: false 
+        },
+        country: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        bank: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        license: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        socialSecurityNumber: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        birthCertificate: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        passportNumber: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
     },
         {
-            tableName: 'dbusers',
+            tableName: 'userDB',
             freezeTableName: true,
             sequelize
         }
