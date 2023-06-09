@@ -150,15 +150,31 @@ export const createFile: RequestHandler = async (req: any, res, next) => {
       return res.status(403).send();
    }
    const file = req.file;
+
    console.log(file);
    if (file) {
-      let newFile: File = req.body;
-      newFile.userId = user.userId;
-      newFile.storedName = file.filename;
-      newFile.fileName = file.originalname;
-      newFile.createdAt = newFile.updatedAt = new Date();
-      let created = await File.create(newFile);
-      res.status(201).json(created);
+      const md5File = require("md5-file");
+      const hash = md5File.sync(
+         path.resolve(__dirname, "../../userFiles", file.filename)
+      );
+      let currentFile = await File.findOne({
+         where: { hash: hash, userId: user.userId },
+      });
+      if (currentFile) {
+         res.json({ file: "file already exists" });
+      } else {
+         let newFile: File = req.body;
+         newFile.userId = user.userId;
+         newFile.storedName = file.filename;
+         newFile.fileName = file.originalname;
+         // todo store hash
+         newFile.hash = hash;
+         newFile.createdAt = newFile.updatedAt = new Date();
+         let created = await File.create(newFile);
+         res.status(201).json(created);
+      }
+
+      // TODO check the database for duplicit files (same user id and hash)
    } else {
       res.status(400).send();
    }
