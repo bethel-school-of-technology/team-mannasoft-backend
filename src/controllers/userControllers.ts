@@ -40,23 +40,14 @@ export const loginUser: RequestHandler = async (req, res, next) => {
 export const getUser: RequestHandler = async (req, res, next) => {
     let user: User | null = await verifyUser(req)
     if (user) {
-        let { userId, username, firstName, lastName, email, phoneNumber, streetName, city, state, country, bank, license, socialSecurityNumber, birthCertificate, passportNumber } = user
+        let { userId, username, firstName, lastName, email, phoneNumber } = user
         res.status(200).json ({
             userId,
             username,
             firstName,
             lastName,
             email,
-            phoneNumber,
-            streetName,
-            city,
-            state,
-            country,
-            bank,
-            license,
-            socialSecurityNumber,
-            birthCertificate,
-            passportNumber
+            phoneNumber
         })
     } else {
         res.status(401).json();
@@ -72,9 +63,7 @@ export const editUser: RequestHandler = async (req, res, next) => {
     let newUser: User = req.body;
     let userFound = await User.findByPk(userId);
     console.log(newUser)
-    if (userFound && userFound.userId == user.userId && newUser.username && newUser.email && newUser.phoneNumber 
-        && newUser.city && newUser.state && newUser.country && newUser.streetName && newUser.bank && newUser.license 
-        && newUser.socialSecurityNumber && newUser.birthCertificate && newUser.passportNumber) {
+    if (userFound && userFound.userId == user.userId && newUser.username && newUser.email && newUser.phoneNumber) {
         if (newUser.password && newUser.password !== '') {
             let hashedPassword = await hashPassword(newUser.password);
             newUser.password = hashedPassword;
