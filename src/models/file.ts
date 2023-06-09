@@ -1,50 +1,65 @@
-import { DataTypes, InferAttributes, InferCreationAttributes, Model, Sequelize } from "sequelize";
+import {
+   DataTypes,
+   InferAttributes,
+   InferCreationAttributes,
+   Model,
+   Sequelize,
+} from "sequelize";
 import { User } from "./user";
 
-export class File extends Model<InferAttributes<File>, InferCreationAttributes<File>> {
-    declare fileId: number;
-    declare description?: string;
-    declare fileName: string;
-    declare storedName: string;
-    declare userId: number;
-    declare createdAt?: Date;
-    declare updatedAt?: Date;
+export class File extends Model<
+   InferAttributes<File>,
+   InferCreationAttributes<File>
+> {
+   declare fileId: number;
+   declare description?: string;
+   declare fileName: string;
+   declare storedName: string;
+   declare hash: string;
+   declare userId: number;
+   declare createdAt?: Date;
+   declare updatedAt?: Date;
 }
 
 export function FileFactory(sequelize: Sequelize) {
-    File.init({
-        fileId: {
+   File.init(
+      {
+         fileId: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
-            allowNull: false
-        },
-        description: {
+            allowNull: false,
+         },
+         description: {
             type: DataTypes.STRING,
-            allowNull: true
-        },
-        fileName: {
+            allowNull: true,
+         },
+         fileName: {
             type: DataTypes.STRING,
-            allowNull: false
-        },
-        storedName: {
+            allowNull: false,
+         },
+         storedName: {
             type: DataTypes.STRING,
-            allowNull: false
-        },
-        userId: {
+            allowNull: false,
+         },
+         hash: {
+            type: DataTypes.STRING,
+            allowNull: false,
+         },
+         userId: {
             type: DataTypes.INTEGER,
             allowNull: false,
-        }
-    },
-        {
-            tableName: 'dbfiles',
-            freezeTableName: true,
-            sequelize
-        }
-    );
+         },
+      },
+      {
+         tableName: "dbfiles",
+         freezeTableName: true,
+         sequelize,
+      }
+   );
 }
 
 export function AssociateUserFile() {
-    User.hasMany(File, { foreignKey: 'userId' });
-    File.belongsTo(User, { foreignKey: 'userId' });
+   User.hasMany(File, { foreignKey: "userId" });
+   File.belongsTo(User, { foreignKey: "userId" });
 }
