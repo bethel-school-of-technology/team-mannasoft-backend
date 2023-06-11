@@ -1,4 +1,4 @@
-const express = require("express");
+import { Router } from "express";
 import {
    createFile,
    getFiles,
@@ -7,16 +7,17 @@ import {
    deleteFile,
    downloadOneFile,
 } from "../controllers/fileControllers";
+
 const multer = require("multer");
 const upload = multer({ dest: "userFiles/" });
 
-const apps = express();
+const router = Router();
 
-apps.get("/:fileId", getOneFile);
-apps.get("/download/:fileId", downloadOneFile);
-apps.put("/:fileId", editFile);
-apps.delete("/:fileId", deleteFile);
-apps.get("/", getFiles);
-apps.post("/", upload.single("file"), createFile);
+router.get("/:fileId", getOneFile);
+router.get("/download/:fileId", downloadOneFile);
+router.put("/:fileId", editFile);
+router.delete("/:fileId", deleteFile);
+router.get("/", getFiles);
+router.post("/", upload.single("file"), createFile);
 
-export default apps;
+export default router;

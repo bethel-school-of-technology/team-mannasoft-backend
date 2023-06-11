@@ -1,16 +1,7 @@
-import {
-   DataTypes,
-   InferAttributes,
-   InferCreationAttributes,
-   Model,
-   Sequelize,
-} from "sequelize";
+import { DataTypes, InferAttributes, InferCreationAttributes, Model, Sequelize } from "sequelize";
 import { User } from "./user";
 
-export class File extends Model<
-   InferAttributes<File>,
-   InferCreationAttributes<File>
-> {
+export class File extends Model<InferAttributes<File>,InferCreationAttributes<File>> {
    declare fileId: number;
    declare description?: string;
    declare fileName: string;
@@ -52,7 +43,7 @@ export function FileFactory(sequelize: Sequelize) {
          },
       },
       {
-         tableName: "dbfiles",
+         tableName: "dbfile",
          freezeTableName: true,
          sequelize,
       }
