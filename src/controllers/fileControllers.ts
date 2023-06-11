@@ -37,14 +37,11 @@ export const createFile: RequestHandler = async (req: any, res, next) => {
          newFile.userId = user.userId;
          newFile.storedName = file.filename;
          newFile.fileName = file.originalname;
-         // todo store hash
          newFile.hash = hash;
          newFile.createdAt = newFile.updatedAt = new Date();
          let created = await File.create(newFile);
          res.status(201).json(created);
       }
-
-      // TODO check the database for duplicit files (same user id and hash)
    } else {
       res.status(400).send();
    }
@@ -65,13 +62,8 @@ export const getOneFile: RequestHandler = async (req, res, next) => {
 };
 
 export const downloadOneFile: RequestHandler = async (req, res, next) => {
-   // let user: User | null = await verifyUser(req);
-   // if (!user) {
-   //    return res.status(403).send();
-   // }
    let fileId = req.params.fileId;
    let fileFound = await File.findOne({ where: { storedName: fileId } });
-   // let fileFound = await File.findByPk(fileId);
    if (fileFound) {
       res.set(
          "Content-Disposition",
@@ -127,12 +119,10 @@ export const deleteFile: RequestHandler = async (req, res, next) => {
    console.log("filePath: ", filePath);
 
    if (fileFound) {
-      // TODO delete file from filesystem
 
       await File.destroy({
          where: { fileId: fileId },
       });
-      // @ts-ignore
       fs.unlink(`${filePath}`, function (err: any) {
          if (err) throw err;
          console.log("deleted");

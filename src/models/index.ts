@@ -1,11 +1,14 @@
 import { Sequelize } from "sequelize";
 import { UserFactory } from "./user";
-import { AssociateUserFile, FileFactory } from "./file";
+import { 
+   AssociateUserFile, 
+   FileFactory 
+} from "./file";
 
 require("dotenv").config();
 
-// const dbName: any = process.env.DBNAME;
-const dbName: any = "legalEasedb";
+const dbName: any = process.env.DBNAME;
+// const dbName: any = "legalEasedb";
 const username = "root";
 const password = process.env.DBPASSWORD;
 
