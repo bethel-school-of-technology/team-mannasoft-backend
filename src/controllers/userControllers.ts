@@ -22,6 +22,7 @@ export const loginUser: RequestHandler = async (req, res, next) => {
     let existingUser: User | null = await User.findOne({
         where: { username: req.body.username }
     });
+    console.log(existingUser)
 
     if (existingUser) {
         let passwordsMatch = await comparePasswords(req.body.password, existingUser.password);
@@ -60,10 +61,10 @@ export const editUser: RequestHandler = async (req, res, next) => {
         return res.status(403).send();
     };
 
+    console.log(user)
     let userId = req.params.userId;
     let newUser: User = req.body;
     let userFound = await User.findByPk(userId);
-    console.log(newUser)
     if (userFound && userFound.userId == user.userId && newUser.username && newUser.email && newUser.phoneNumber) {
         if (newUser.password && newUser.password !== '') {
             let hashedPassword = await hashPassword(newUser.password);
@@ -82,17 +83,15 @@ export const editUser: RequestHandler = async (req, res, next) => {
 
 export const deleteUser: RequestHandler = async (req, res, next) => {
     let user: User | null = await verifyUser(req);
-    
     if (!user) {
+        console.log(user)
         return res.status(403).send();
     };
     
     let userId = req.params.userId;
-    //let password = req.params.password
     console.log(`userId ${userId}`)
     let userFound = await User.findByPk(userId);
     let passwordsMatch = await comparePasswords(req.body.password, user.password);
-
     if (userFound) {
         if (passwordsMatch) {
             await User.destroy({
