@@ -82,29 +82,19 @@ export const editUser: RequestHandler = async (req, res, next) => {
 
 export const deleteUser: RequestHandler = async (req, res, next) => {
     let user: User | null = await verifyUser(req);
-    
     if (!user) {
         return res.status(403).send();
     };
-    
     let userId = req.params.userId;
-    //let password = req.params.password
-    console.log(`userId ${userId}`)
     let userFound = await User.findByPk(userId);
-    let passwordsMatch = await comparePasswords(req.body.password, user.password);
-
     if (userFound) {
-        if (passwordsMatch) {
-            await User.destroy({
-                where: { userId: userId }
-            });
-            res.status(200).json();
-        } else {
-            res.status(401).json('Invalid password');
-        }
+        await User.destroy({
+            where: { userId: userId }
+        });
+        res.status(200).json();
     } else {
         res.status(404).json();
-    }
+    };
 };
 
 const invalidatedTokens: string[] = [];
